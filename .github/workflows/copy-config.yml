@@ -38,7 +38,7 @@ jobs:
           persist-credentials: false
           fetch-depth: 0
           path: addon
-          repository: jnull/hassio-addon
+          repository: jnull/hassio-addons
 
       - name: setup local env
         run: |
@@ -55,5 +55,5 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.REGISTRY_CREDS }}
-          repository: jnull/hassio-addon
+          repository: jnull/hassio-addons
           directory: addon
