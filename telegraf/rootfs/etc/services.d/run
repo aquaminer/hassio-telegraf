@@ -1,0 +1,10 @@
+#!/command/with-contenv bashio
+# ==============================================================================
+# Home Assistant Add-on: Telegraf
+# Runs the Telegraf Server
+# ==============================================================================
+
+bashio::log.info 'Starting the Telegraf...'
+
+# Run Telegraf
+exec telegraf

@@ -1,0 +1,27 @@
+name: Build and Publish
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build-and-push-docker-image:
+    name: Build Docker image and push to repositories
+    # run only when code is compiling and tests are passing
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@4
+      - name: shellcheck
+        run: shellcheck telegraf/run.sh
+      - name: build docker files
+        uses: home-assistant/builder@master
+        with:
+          args: |
+            --test \
+            --all \
+            --target telegraf \
+            --docker-hub ${{ secrets.DOCKER_USERNAME }} \
+            --docker-user ${{ secrets.DOCKER_USERNAME }} \
+            --docker-password ${{ secrets.DOCKER_TOKEN }}
