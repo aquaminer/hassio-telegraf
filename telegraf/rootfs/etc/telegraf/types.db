@@ -1,9 +1,18 @@
+
+#
+# (required for the v5 upgrade target)
+# Legacy types
 absolute                value:ABSOLUTE:0:U
 apache_bytes            value:DERIVE:0:U
 apache_connections      value:GAUGE:0:65535
 apache_idle_workers     value:GAUGE:0:65535
 apache_requests         value:DERIVE:0:U
 apache_scoreboard       value:GAUGE:0:65535
+arc_counts              demand_data:COUNTER:0:U, demand_metadata:COUNTER:0:U, prefetch_data:COUNTER:0:U, prefetch_metadata:COUNTER:0:U
+arc_l2_bytes            read:COUNTER:0:U, write:COUNTER:0:U
+arc_l2_size             value:GAUGE:0:U
+arc_ratio               value:GAUGE:0:U
+arc_size                current:GAUGE:0:U, target:GAUGE:0:U, minlimit:GAUGE:0:U, maxlimit:GAUGE:0:U
 ath_nodes               value:GAUGE:0:65535
 ath_stat                value:DERIVE:0:U
 backends                value:GAUGE:0:65535
@@ -32,9 +41,9 @@ clock_reachability      value:GAUGE:0:U
 clock_skew_ppm          value:GAUGE:0:1000000
 clock_state             value:GAUGE:0:U
 clock_stratum           value:GAUGE:0:U
+commands                value:DERIVE:0:U
 compression             uncompressed:DERIVE:0:U, compressed:DERIVE:0:U
 compression_ratio       value:GAUGE:0:2
-commands                value:DERIVE:0:U
 connections             value:DERIVE:0:U
 conntrack               value:GAUGE:0:4294967295
 contextswitch           value:DERIVE:0:U
@@ -57,8 +66,8 @@ df_inodes               value:GAUGE:0:U
 dilution_of_precision   value:GAUGE:0:U
 disk_allocation         value:GAUGE:0:U
 disk_capacity           value:GAUGE:0:U
-disk_discard_ops        value:DERIVE:0:U
 disk_discard_merged     value:DERIVE:0:U
+disk_discard_ops        value:DERIVE:0:U
 disk_discard_sectors    value:DERIVE:0:U
 disk_discard_time       value:DERIVE:0:U
 disk_error              value:GAUGE:0:U
@@ -125,7 +134,9 @@ ib_errors               value:DERIVE:0:U
 ib_lid                  value:GAUGE:0:32767
 ib_lid_mask_count       value:GAUGE:0:7
 ib_link_error_recovery  value:DERIVE:0:U
+ib_octets               rx:DERIVE:0:U tx:DERIVE:0:U
 ib_octets               rx:DERIVE:0:U, tx:DERIVE:0:U
+ib_packets              rx:DERIVE:0:U tx:DERIVE:0:U
 ib_packets              rx:DERIVE:0:U, tx:DERIVE:0:U
 ib_phys_state           value:GAUGE:0:15
 ib_rate                 value:GAUGE:0:U
@@ -138,6 +149,8 @@ if_dropped              rx:DERIVE:0:U, tx:DERIVE:0:U
 if_errors               rx:DERIVE:0:U, tx:DERIVE:0:U
 if_multicast            value:DERIVE:0:U
 if_octets               rx:DERIVE:0:U, tx:DERIVE:0:U
+if_octets_bcast         rx:DERIVE:0:U, tx:DERIVE:0:U
+if_octets_mcast         rx:DERIVE:0:U, tx:DERIVE:0:U
 if_packets              rx:DERIVE:0:U, tx:DERIVE:0:U
 if_rx_dropped           value:DERIVE:0:U
 if_rx_errors            value:DERIVE:0:U
@@ -152,6 +165,7 @@ invocations             value:DERIVE:0:U
 io_octets               rx:DERIVE:0:U, tx:DERIVE:0:U
 io_ops                  read:DERIVE:0:U, write:DERIVE:0:U
 io_packets              rx:DERIVE:0:U, tx:DERIVE:0:U
+ip_stats_octets         ip4rx:DERIVE:0:U, ip4tx:DERIVE:0:U, ip6rx:DERIVE:0:U, ip6tx:DERIVE:0:U
 ipc                     value:GAUGE:0:U
 ipt_bytes               value:DERIVE:0:U
 ipt_packets             value:DERIVE:0:U
@@ -161,18 +175,18 @@ latency                 value:GAUGE:0:U
 links                   value:GAUGE:0:U
 load                    shortterm:GAUGE:0:5000, midterm:GAUGE:0:5000, longterm:GAUGE:0:5000
 max_ec                  value:GAUGE:0:U
-media                   value:GAUGE:0:18446744073709551615
-memory_bandwidth        value:DERIVE:0:U
 md_disks                value:GAUGE:0:U
+media                   value:GAUGE:0:18446744073709551615
 memcached_command       value:DERIVE:0:U
 memcached_connections   value:GAUGE:0:U
 memcached_items         value:GAUGE:0:U
 memcached_octets        rx:DERIVE:0:U, tx:DERIVE:0:U
 memcached_ops           value:DERIVE:0:U
 memory                  value:GAUGE:0:281474976710656
+memory_bandwidth        value:DERIVE:0:U
 memory_lua              value:GAUGE:0:281474976710656
 memory_throttle_count   value:DERIVE:0:U
-mmc_power_cycles        value:GAUGE:0:U
+mmc_bad_blocks          value:GAUGE:0:U
 mmc_block_erases        value:GAUGE:0:U
 mmc_erases_mlc_avg      value:GAUGE:0:U
 mmc_erases_mlc_max      value:GAUGE:0:U
@@ -183,11 +197,11 @@ mmc_erases_slc_min      value:GAUGE:0:U
 mmc_erases_sys_avg      value:GAUGE:0:U
 mmc_erases_sys_max      value:GAUGE:0:U
 mmc_erases_sys_min      value:GAUGE:0:U
-mmc_bad_blocks          value:GAUGE:0:U
-mmc_spare_blocks        value:GAUGE:0:U
 mmc_life_time_est_typ_a value:GAUGE:1:11
 mmc_life_time_est_typ_b value:GAUGE:1:11
+mmc_power_cycles        value:GAUGE:0:U
 mmc_pre_eol_info        value:GAUGE:0:4
+mmc_spare_blocks        value:GAUGE:0:U
 multimeter              value:GAUGE:U:U
 mutex_operations        value:DERIVE:0:U
 mysql_bpool_bytes       value:GAUGE:0:U
@@ -204,12 +218,13 @@ mysql_innodb_rows       value:DERIVE:0:U
 mysql_locks             value:DERIVE:0:U
 mysql_log_position      value:DERIVE:0:U
 mysql_octets            rx:DERIVE:0:U, tx:DERIVE:0:U
+mysql_qcache            hits:COUNTER:0:U, inserts:COUNTER:0:U, not_cached:COUNTER:0:U, lowmem_prunes:COUNTER:0:U, queries_in_cache:GAUGE:0:U
 mysql_select            value:DERIVE:0:U
+mysql_slow_queries      value:DERIVE:0:U
 mysql_sort              value:DERIVE:0:U
 mysql_sort_merge_passes value:DERIVE:0:U
 mysql_sort_rows         value:DERIVE:0:U
-mysql_slow_queries      value:DERIVE:0:U
-questions               value:GAUGE:0:U
+mysql_threads           running:GAUGE:0:U, connected:GAUGE:0:U, cached:GAUGE:0:U, created:COUNTER:0:U
 nfs_procedure           value:DERIVE:0:U
 nginx_connections       value:GAUGE:0:U
 nginx_requests          value:DERIVE:0:U
@@ -217,6 +232,42 @@ node_octets             rx:DERIVE:0:U, tx:DERIVE:0:U
 node_rssi               value:GAUGE:0:255
 node_stat               value:DERIVE:0:U
 node_tx_rate            value:GAUGE:0:127
+nvme_avail_spare                            value:GAUGE:0:100
+nvme_avail_spare_thresh                     value:GAUGE:0:100
+nvme_crc_error_count                        value:GAUGE:0:U
+nvme_critical_comp_time                     value:GAUGE:0:U
+nvme_critical_warning                       value:GAUGE:0:31
+nvme_ctrl_busy_time                         value:GAUGE:0:U
+nvme_data_units_read                        value:GAUGE:0:U
+nvme_data_units_written                     value:GAUGE:0:U
+nvme_end_to_end_error_detection_count       value:GAUGE:0:U
+nvme_endu_grp_crit_warn_sumry               value:GAUGE:0:15
+nvme_erase_fail_count                       value:GAUGE:0:U
+nvme_host_bytes_written                     value:GAUGE:0:U
+nvme_host_commands_read                     value:GAUGE:0:U
+nvme_host_commands_written                  value:GAUGE:0:U
+nvme_media_errors                           value:GAUGE:0:U
+nvme_nand_bytes_written                     value:GAUGE:0:U
+nvme_num_err_log_entries                    value:GAUGE:0:U
+nvme_percent_used                           value:GAUGE:0:255
+nvme_pll_lock_loss_count                    value:GAUGE:0:U
+nvme_power_cycles                           value:GAUGE:0:U
+nvme_power_on_hours                         value:GAUGE:0:U
+nvme_program_fail_count                     value:GAUGE:0:U
+nvme_retry_buffer_overflow_count            value:GAUGE:0:U
+nvme_temp_sensor                            value:GAUGE:-300:300
+nvme_temperature                            value:GAUGE:-300:300
+nvme_thermal_mgmt_temp1_total_time          value:GAUGE:0:U
+nvme_thermal_mgmt_temp1_transition_count    value:GAUGE:0:U
+nvme_thermal_mgmt_temp2_total_time          value:GAUGE:0:U
+nvme_thermal_mgmt_temp2_transition_count    value:GAUGE:0:U
+nvme_thermal_throttle_status                value:GAUGE:0:U
+nvme_timed_workload_host_reads              value:GAUGE:0:100
+nvme_timed_workload_media_wear              value:GAUGE:0:U
+nvme_timed_workload_timer                   value:GAUGE:0:U
+nvme_unsafe_shutdowns                       value:GAUGE:0:U
+nvme_warning_temp_time                      value:GAUGE:0:U
+nvme_wear_leveling                          value:GAUGE:0:U
 objects                 value:GAUGE:0:U
 operations              value:DERIVE:0:U
 operations_per_second   value:GAUGE:0:U
@@ -260,6 +311,16 @@ ps_state                value:GAUGE:0:65535
 ps_vm                   value:GAUGE:0:9223372036854775807
 pstates_enabled         value:GAUGE:0:1
 pubsub                  value:GAUGE:0:U
+qdisc_backlog           value:GAUGE:0:U
+qdisc_bytes             value:DERIVE:0:U
+qdisc_drops             value:DERIVE:0:U
+qdisct_backlog          value:GAUGE:0:U
+qdisct_bytes            value:DERIVE:0:U
+qdisct_drops            drops:DERIVE:0:U, ecn:DERIVE:0:U, ack:DERIVE:0:U
+qdisct_flows		sp:GAUGE:0:U, bu:GAUGE:0:U, un:GAUGE:0:U
+qdisct_latencyus	tg:GAUGE:0:U, pk:GAUGE:0:U, av:GAUGE:0:U, sp:GAUGE:0:U
+qdisct_thres            value:GAUGE:0:U
+questions               value:GAUGE:0:U
 queue_length            value:GAUGE:0:U
 ras_errors              value:COUNTER:0:U
 records                 value:GAUGE:0:U
@@ -278,61 +339,26 @@ serial_octets           rx:DERIVE:0:U, tx:DERIVE:0:U
 signal_noise            value:GAUGE:U:0
 signal_power            value:GAUGE:U:0
 signal_quality          value:GAUGE:0:U
-slurm_job_state         value:GAUGE:0:U
-slurm_node_state        value:GAUGE:0:U
 slurm_backfilled_jobs   value:DERIVE:0:U
-slurm_cycles            value:DERIVE:0:U
-slurm_cycle_last        value:GAUGE:0:U
-slurm_cycle_duration    value:DERIVE:0:U
-slurm_last_cycle_depth  value:GAUGE:0:U
 slurm_cycle_depth       value:DERIVE:0:U
+slurm_cycle_duration    value:DERIVE:0:U
+slurm_cycle_last        value:GAUGE:0:U
+slurm_cycles            value:DERIVE:0:U
+slurm_job_state         value:GAUGE:0:U
 slurm_job_stats         value:DERIVE:0:U
+slurm_last_cycle_depth  value:GAUGE:0:U
+slurm_node_state        value:GAUGE:0:U
 slurm_queue_length      value:DERIVE:0:U
 smart_attribute         current:GAUGE:0:255, worst:GAUGE:0:255, threshold:GAUGE:0:255, pretty:GAUGE:0:U
 smart_badsectors        value:GAUGE:0:U
 smart_powercycles       value:GAUGE:0:U
 smart_poweron           value:GAUGE:0:U
 smart_temperature       value:GAUGE:-300:300
-nvme_critical_warning                       value:GAUGE:0:31
-nvme_temperature                            value:GAUGE:-300:300
-nvme_avail_spare                            value:GAUGE:0:100
-nvme_avail_spare_thresh                     value:GAUGE:0:100
-nvme_percent_used                           value:GAUGE:0:255
-nvme_endu_grp_crit_warn_sumry               value:GAUGE:0:15
-nvme_data_units_read                        value:GAUGE:0:U
-nvme_data_units_written                     value:GAUGE:0:U
-nvme_host_commands_read                     value:GAUGE:0:U
-nvme_host_commands_written                  value:GAUGE:0:U
-nvme_ctrl_busy_time                         value:GAUGE:0:U
-nvme_power_cycles                           value:GAUGE:0:U
-nvme_power_on_hours                         value:GAUGE:0:U
-nvme_unsafe_shutdowns                       value:GAUGE:0:U
-nvme_media_errors                           value:GAUGE:0:U
-nvme_num_err_log_entries                    value:GAUGE:0:U
-nvme_warning_temp_time                      value:GAUGE:0:U
-nvme_critical_comp_time                     value:GAUGE:0:U
-nvme_temp_sensor                            value:GAUGE:-300:300
-nvme_thermal_mgmt_temp1_transition_count    value:GAUGE:0:U
-nvme_thermal_mgmt_temp1_total_time          value:GAUGE:0:U
-nvme_thermal_mgmt_temp2_transition_count    value:GAUGE:0:U
-nvme_thermal_mgmt_temp2_total_time          value:GAUGE:0:U
-nvme_program_fail_count                     value:GAUGE:0:U
-nvme_erase_fail_count                       value:GAUGE:0:U
-nvme_wear_leveling                          value:GAUGE:0:U
-nvme_end_to_end_error_detection_count       value:GAUGE:0:U
-nvme_crc_error_count                        value:GAUGE:0:U
-nvme_timed_workload_timer                   value:GAUGE:0:U
-nvme_timed_workload_media_wear              value:GAUGE:0:U
-nvme_timed_workload_host_reads              value:GAUGE:0:100
-nvme_thermal_throttle_status                value:GAUGE:0:U
-nvme_retry_buffer_overflow_count            value:GAUGE:0:U
-nvme_pll_lock_loss_count                    value:GAUGE:0:U
-nvme_nand_bytes_written                     value:GAUGE:0:U
-nvme_host_bytes_written                     value:GAUGE:0:U
 snr                     value:GAUGE:0:U
 spam_check              value:GAUGE:0:U
 spam_score              value:GAUGE:U:U
 spl                     value:GAUGE:U:U
+stations                value:GAUGE:0:256
 swap                    value:GAUGE:0:1099511627776
 swap_io                 value:DERIVE:0:U
 sysevent                value:GAUGE:0:1
@@ -357,10 +383,10 @@ total_sessions          value:DERIVE:0:U
 total_threads           value:DERIVE:0:U
 total_time_in_ms        value:DERIVE:0:U
 total_values            value:DERIVE:0:U
-turbo_enabled           value:GAUGE:0:1
 transitions             value:DERIVE:0:U
-uptime                  value:GAUGE:0:4294967295
+turbo_enabled           value:GAUGE:0:1
 uncore_ratio            value:GAUGE:0:U
+uptime                  value:GAUGE:0:4294967295
 users                   value:GAUGE:0:65535
 vcl                     value:GAUGE:0:65535
 vcpu                    value:GAUGE:0:U
@@ -382,15 +408,3 @@ voltage_threshold       value:GAUGE:U:U, threshold:GAUGE:U:U
 vs_memory               value:GAUGE:0:9223372036854775807
 vs_processes            value:GAUGE:0:65535
 vs_threads              value:GAUGE:0:65535
-
-#
-# Legacy types
-# (required for the v5 upgrade target)
-#
-arc_counts              demand_data:COUNTER:0:U, demand_metadata:COUNTER:0:U, prefetch_data:COUNTER:0:U, prefetch_metadata:COUNTER:0:U
-arc_l2_bytes            read:COUNTER:0:U, write:COUNTER:0:U
-arc_l2_size             value:GAUGE:0:U
-arc_ratio               value:GAUGE:0:U
-arc_size                current:GAUGE:0:U, target:GAUGE:0:U, minlimit:GAUGE:0:U, maxlimit:GAUGE:0:U
-mysql_qcache            hits:COUNTER:0:U, inserts:COUNTER:0:U, not_cached:COUNTER:0:U, lowmem_prunes:COUNTER:0:U, queries_in_cache:GAUGE:0:U
-mysql_threads           running:GAUGE:0:U, connected:GAUGE:0:U, cached:GAUGE:0:U, created:COUNTER:0:U

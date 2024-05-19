@@ -69,21 +69,21 @@ else
 
   if bashio::config.true 'influxDB.enabled'; then
     if bashio::var.has_value "${INFLUX_UN}"; then
-      influx_un="  username='INFLUX_UN'"
+      influx_un="username='INFLUX_UN'"
     else
-      influx_un="  # INFLUX_UN"
+      influx_un="# INFLUX_UN"
     fi
 
     if bashio::var.has_value "${INFLUX_PW}"; then
-      influx_pw="  password='INFLUX_PW'"
+      influx_pw="password='INFLUX_PW'"
     else
-      influx_pw="  # INFLUX_PW"
+      influx_pw="# INFLUX_PW"
     fi
 
     if bashio::var.has_value "${RETENTION}"; then
-      influx_ret="  retention_policy='RETENTION'"
+      influx_ret="retention_policy='RETENTION'"
     else
-      influx_ret="  # RETENTION"
+      influx_ret="# RETENTION"
     fi
 
     {
