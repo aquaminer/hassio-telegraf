@@ -45,7 +45,7 @@ COPY rootfs /
 # RUN chmod 775 /etc/services.d/telegraf/run
 # RUN chmod 775 /etc/services.d/telegraf/finish
 
-#EXPOSE 8092/udp 8094 8125/udp 9273/tcp
+EXPOSE 8092/udp 8094 8125/udp 9273/tcp 25826/udp
 
 # Build arguments
 # ARG BUILD_ARCH

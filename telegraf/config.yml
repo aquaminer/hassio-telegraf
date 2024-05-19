@@ -18,7 +18,7 @@ hassio_role: default
 auth_api: true
 docker_api: true
 host_network: true
-apparmor: false
+apparmor: true
 map:
   - config:rw
   - ssl:rw
