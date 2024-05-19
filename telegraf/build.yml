@@ -16,4 +16,4 @@ labels:
     - amd64
     - i386
   io.hass.type: "addon"
-  io.hass.version: 1.0.5
+  io.hass.version: 1.0.6
