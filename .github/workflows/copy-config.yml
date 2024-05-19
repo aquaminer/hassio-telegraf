@@ -78,6 +78,8 @@ jobs:
           path: addon
           repository: jnull/hassio-addons
       - name: setup local env
+        env:
+          VERSION: ${{ needs.build.outputs.version }}
         run: |
           \cp -Rv main/telegraf/config.yml addon/telegraf/config.yml
           \cp -Rv main/README.md addon/telegraf/README.md
@@ -85,7 +87,7 @@ jobs:
           git config --local user.email "admin@jnull.org"
           git config --local user.name "jnull"
           git add .
-          git commit -m "Add changes"
+          git commit -m "Add changes for version: ${VERSION}"
         continue-on-error: true
 
       - name: copy config to repo dir in case of change
