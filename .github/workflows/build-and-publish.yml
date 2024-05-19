@@ -12,7 +12,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+      - name: Get current Version
+        id: version
+        run: |
+          if [[ "${{ github.ref_type }}" = "tag" ]]; then
+            echo "version=$(echo ${{ github.ref }} | sed "s/^.*\/v//g")" >> $GITHUB_OUTPUT
+          else
+            echo "Ref Type not tag: ${{github.ref_type}}"
+            echo "latest" >> $GITHUB_OUTPUT
+          fi
       - name: shellcheck
         run: shellcheck telegraf/run.sh
       - name: Login to GitHub Container Registry
