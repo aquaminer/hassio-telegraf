@@ -34,8 +34,11 @@ jobs:
           VERSION: ${{ steps.version.outputs.version }}
         run: |
           sed -i "s/io.hass.version:.*/io.hass.version: ${VERSION}/g" telegraf/build.yml
-      - name: check build.yml
-        run: cat telegraf/build.yml
+          sed -i "s/version:.*/version: ${VERSION}/g" telegraf/config.yml
+      - name: check build.yml and config.yml
+        run: |
+          cat telegraf/build.yml | grep "io.hass.version"
+          cat telegraf/config.yml | grep "version"
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3.1.0
         with:
