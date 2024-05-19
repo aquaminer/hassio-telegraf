@@ -16,9 +16,9 @@ jobs:
           args: |
             --all \
             --target telegraf \
-            --docker-hub ${{ secrets.DOCKER_USERNAME }} \
-            --docker-user ${{ secrets.DOCKER_USERNAME }} \
-            --docker-password ${{ secrets.DOCKER_TOKEN }}
+            --docker-hub ${{ github.repository_owner }} \
+            --docker-user ${{ github.repository_owner }} \
+            --docker-password ${{ secrets.GITHUB_TOKEN }}
 
   push-config-to-addon-repo:
     needs: build

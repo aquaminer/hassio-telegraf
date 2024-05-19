@@ -11,6 +11,7 @@
     "amd64",
     "i386"
   ],
+  "image": "ghcr.io/jnull/hassio-telegraf/{arch}",
   "init": false,
   "startup": "services",
   "boot": "manual",
@@ -153,6 +154,5 @@
   "ports_description": {
     "9273/tcp": "Prometheus Client",
     "25826/udp": "Collectd Server"
-  },
-  "image": "jnull/hassio-telegraf/{arch}"
+  }
 }
