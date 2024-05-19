@@ -16,7 +16,7 @@ jobs:
           args: |
             --all \
             --target telegraf \
-            --docker-hub ${{ github.repository_owner }} \
+            --docker-hub ghcr.io \
             --docker-user ${{ github.repository_owner }} \
             --docker-password ${{ secrets.GITHUB_TOKEN }}
 
