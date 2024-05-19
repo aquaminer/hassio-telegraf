@@ -36,20 +36,36 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: main
+      - name: Checkout Main Repo
         uses: actions/checkout@v4
         with:
           persist-credentials: false
           fetch-depth: 0
           path: main
-      - name: addon
+      - name: Get current Version
+        id: version
+        run: |
+          if [[ "${{ github.ref_type }}" = "tag" ]]; then
+            TAG=${{ github.ref }}
+            echo "version=${TAG#v}" >> $GITHUB_OUTPUT
+          else
+            echo "Ref Type not tag: ${{github.ref_type}}"
+            echo "latest" >> $GITHUB_OUTPUT
+          fi
+      - name: Update Verson in config.yml
+        uses: fjogeleit/yaml-update-action@v0.14.0
+        with:
+          valueFile: "main/telegraf/config.yml"
+          propertyPath: "version"
+          value: ${{ steps.version.outputs.version }}
+          commitChange: false
+      - name: Checkout Addon Repo
         uses: actions/checkout@v4
         with:
           persist-credentials: false
           fetch-depth: 0
           path: addon
           repository: jnull/hassio-addons
-
       - name: setup local env
         run: |
           \cp -Rv main/telegraf/config.yml addon/telegraf/config.yml
