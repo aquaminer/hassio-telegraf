@@ -42,7 +42,7 @@ jobs:
 
       - name: setup local env
         run: |
-          \cp -Rv main/telegraf/config.json addon/telegraf/config.json
+          \cp -Rv main/telegraf/config.yml addon/telegraf/config.yml
           \cp -Rv main/README.md addon/telegraf/README.md
           cd addon
           git config --local user.email "admin@jnull.org"
