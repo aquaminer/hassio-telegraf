@@ -4,7 +4,7 @@
 # Runs the Telegraf Server
 # ==============================================================================
 
-bashio::log.info 'Starting the Telegraf...'
+bashio::log.info 'Starting Telegraf...'
 
 # Run Telegraf
 exec telegraf
