@@ -11,12 +11,12 @@ ARG TELEGRAF_VERSION="1.34.4-1"
 RUN \
     apt-get update \
     && apt-get install -y --no-install-recommends \
-    iputils-ping \
-    snmp \
-    lm-sensors \
-    smartmontools \
-    ipmitool \
-    procps \
+    iputils-ping=3:20221126-1 \
+    snmp=5.9.3 \
+    lm-sensors=1:3.6.0-7.1 \
+    smartmontools=7.3-1 \
+    ipmitoo=1.8.19-4 \
+    procps=2:4.0.2 \
     \
     && ARCH="${BUILD_ARCH}" \
     && if [ "${BUILD_ARCH}" = "aarch64" ]; then ARCH="arm64"; fi \
