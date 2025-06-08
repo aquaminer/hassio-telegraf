@@ -11,11 +11,11 @@ ARG TELEGRAF_VERSION="1.34.4-1"
 RUN \
     apt-get update \
     && apt-get install -y --no-install-recommends \
-    iputils-ping=3:20221126-1 \
-    snmp=5.9.3 \
+    iputils-ping=3:20221126-1+deb12u1 \
+    snmp=5.9.3+dfsg-2 \
     lm-sensors=1:3.6.0-7.1 \
-    smartmontools=7.3-1 \
-    ipmitoo=1.8.19-4 \
+    smartmontools=7.3-1+b1 \
+    ipmitool=1.8.19-4+deb12u2 \
     procps=2:4.0.2 \
     \
     && ARCH="${BUILD_ARCH}" \
@@ -40,13 +40,13 @@ COPY rootfs /
 EXPOSE 8092/udp 8094 8125/udp 9273/tcp 25826/udp
 
 # Build arguments
-# ARG BUILD_ARCH
-# ARG BUILD_DATE
-# ARG BUILD_DESCRIPTION
-# ARG BUILD_NAME
-# ARG BUILD_REF
-# ARG BUILD_REPOSITORY
-# ARG BUILD_VERSION
+ARG BUILD_ARCH
+ARG BUILD_DATE
+ARG BUILD_DESCRIPTION
+ARG BUILD_NAME
+ARG BUILD_REF
+ARG BUILD_REPOSITORY
+ARG BUILD_VERSION
 
 # Labels
 LABEL \
