@@ -5,7 +5,6 @@ description: Telegraf open source data collector
 url: https://github.com/aqmainer/hassio-telegraf
 arch:
   - armhf
-  - armv7
   - aarch64
   - amd64
   - i386

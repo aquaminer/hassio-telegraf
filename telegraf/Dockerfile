@@ -20,7 +20,6 @@ RUN \
     \
     && ARCH="${BUILD_ARCH}" \
     && if [ "${BUILD_ARCH}" = "aarch64" ]; then ARCH="arm64"; fi \
-    && if [ "${BUILD_ARCH}" = "armv7" ]; then ARCH="armhf"; fi \
     \
     && curl -J -L -o /tmp/telegraf.deb \
     "https://dl.influxdata.com/telegraf/releases/telegraf_${TELEGRAF_VERSION}_${ARCH}.deb" \
