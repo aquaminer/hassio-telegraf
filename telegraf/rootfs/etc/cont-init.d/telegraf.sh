@@ -224,4 +224,5 @@ else
 
 fi
 
+
 bashio::log.info "Finished updating config"
