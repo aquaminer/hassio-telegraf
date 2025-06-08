@@ -16,7 +16,7 @@ RUN \
     lm-sensors=1:3.6.0-7.1 \
     smartmontools=7.3-1+b1 \
     ipmitool=1.8.19-4+deb12u2 \
-    procps=2:4.0.2 \
+    procps=2:4.0.2-3 \
     \
     && ARCH="${BUILD_ARCH}" \
     && if [ "${BUILD_ARCH}" = "aarch64" ]; then ARCH="arm64"; fi \
