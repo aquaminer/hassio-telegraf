@@ -3,13 +3,13 @@ name: Telegraf
 slug: telegraf
 version: dev
 description: Telegraf open source data collector
-url: https://github.com/aqmainer/hassio-telegraf
+url: https://github.com/aquaminer/hassio-telegraf
 arch:
   - armv7
   - aarch64
   - amd64
   - i386
-image: ghcr.io/aqmainer/hassio-telegraf/{arch}
+image: ghcr.io/aquaminer/hassio-telegraf/{arch}
 init: false
 startup: services
 boot: manual
