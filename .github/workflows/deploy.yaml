@@ -19,4 +19,4 @@ jobs:
       DISPATCH_TOKEN: ${{ secrets.DISPATCH_TOKEN }}
     with:
       repository: hassio-addons
-      slug: " aquaminer/hassio-telegraf "
+      slug: "aquaminer/hassio-telegraf"
