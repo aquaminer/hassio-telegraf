@@ -17,6 +17,7 @@ RUN \
     smartmontools=7.3-1+b1 \
     ipmitool=1.8.19-4+deb12u2 \
     procps=2:4.0.2-3 \
+    nvme-cli=2.4+really2.3-3 \
     \
     && ARCH="${BUILD_ARCH}" \
     && if [ "${BUILD_ARCH}" = "aarch64" ]; then ARCH="arm64"; \
