@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/hassio-addons/debian-base/amd64:7.8.3
+ARG BUILD_FROM=ghcr.io/hassio-addons/debian-base/amd64:9.1.0
 # hadolint ignore=DL3006
 FROM ${BUILD_FROM}
 
@@ -7,7 +7,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Setup base system
 ARG BUILD_ARCH=amd64
-ARG TELEGRAF_VERSION="1.34.4-1"
+ARG TELEGRAF_VERSION="1.37.0-1"
 RUN \
     apt-get update \
     && apt-get install -y --no-install-recommends \
